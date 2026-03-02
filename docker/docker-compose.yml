@@ -27,6 +27,8 @@ services:
     environment:
       DB_HOST: postgres
       DB_PORT: "5432"
+      # Access Ollama on host machine from container
+      OLLAMA_BASE_URL: http://host.docker.internal:11434/v1
     ports:
       - "8000:8000"
     volumes:
@@ -36,7 +38,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: python main.py
+    command: sh -c "python database.py && python main.py"
 
 volumes:
   pgdata:

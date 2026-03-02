@@ -3,9 +3,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    OPENAI_API_KEY: str = ""
-    OPENAI_MODEL: str = "gpt-4o-mini"
-    OPENAI_TEMPERATURE: float = 0.1
+    # OLLAMA CONFIG
+    OLLAMA_BASE_URL: str = "http://localhost:11434/v1"
+    OLLAMA_MODEL: str = "kmamaroziqov/alloma-8b-q4"
+    OLLAMA_TEMPERATURE: float = 0.7
 
     TELEGRAM_BOT_TOKEN: str = ""
 

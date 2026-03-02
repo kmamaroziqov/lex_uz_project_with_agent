@@ -13,10 +13,15 @@ class AgentService(AbstractAgentService):
 
     def _setup_llm_config(self) -> None:
         import autogen
-        self._config_list = [{
-            "model": self._settings.OPENAI_MODEL,
-            "api_key": self._settings.OPENAI_API_KEY,
-        }]
+
+        self._config_list = [
+            {
+                "base_url": self._settings.OLLAMA_BASE_URL,
+                "model": self._settings.OLLAMA_MODEL,
+                "api_key": "ollama",
+                "price": [0, 0],  # No cost for local models
+            }
+        ]
         self._client = autogen.OpenAIWrapper(config_list=self._config_list)
 
     def classify_intent(self, question: str) -> str:

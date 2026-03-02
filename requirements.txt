@@ -9,7 +9,7 @@ psycopg2-binary
 pgvector
 
 # AI / Embeddings
-pyautogen==0.2.35
+pyautogen
 sentence-transformers
 openai
 

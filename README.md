@@ -2,7 +2,7 @@
 
 AI-powered legal assistant for Uzbekistan's laws. Answers questions about codes, statutes, and legal articles sourced from [Lex.uz](https://lex.uz).
 
-**Stack:** FastAPI · Aiogram 3 · OpenAI · PostgreSQL + pgvector · sentence-transformers
+**Stack:** FastAPI · Aiogram 3 · Ollama · PostgreSQL + pgvector · sentence-transformers
 
 ---
 
@@ -27,14 +27,23 @@ main.py             Unified entrypoint (API + bot, same event loop)
 ## Quick Start — Local
 
 ```bash
-# 1. Clone and create env file
-cp .env.example .env
-# Fill in OPENAI_API_KEY, TELEGRAM_BOT_TOKEN, DB credentials
+# 1. Install Ollama (https://ollama.com/)
+ollama pull kmamaroziqov/alloma-8b-q4
 
-# 2. Install dependencies
+# 2. Clone and create env file
+cp .env.example .env
+
+# 3. Start PostgreSQL in Docker (required for local development)
+docker-compose -f docker/docker-compose.yml up -d postgres
+
+# 4. Fill in OLLAMA_BASE_URL, TELEGRAM_BOT_TOKEN, DB credentials in .env
+# DB_HOST=localhost
+# DB_PORT=5433
+
+# 5. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run
+# 6. Run
 python main.py
 ```
 
@@ -73,8 +82,8 @@ Copy `.env.example` → `.env` and fill in:
 
 | Variable | Description |
 |----------|-------------|
-| `OPENAI_API_KEY` | OpenAI secret key |
-| `OPENAI_MODEL` | Model name (default: `gpt-4o-mini`) |
+| `OLLAMA_BASE_URL` | Ollama API endpoint (default: `http://localhost:11434/v1`) |
+| `OLLAMA_MODEL` | Model name (default: `kmamaroziqov/alloma-8b-q4`) |
 | `TELEGRAM_BOT_TOKEN` | Token from [@BotFather](https://t.me/botfather) |
 | `DB_NAME` | PostgreSQL database name |
 | `DB_USER` | PostgreSQL user |
